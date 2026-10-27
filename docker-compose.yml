@@ -1,0 +1,102 @@
+# GTM Autopilot — self-host stack.
+#   1. Create a free Supabase project (supabase.com) and copy .env.example → .env
+#   2. docker compose up --build
+#   3. Open http://localhost:3001
+# Postgres + Auth come from your Supabase project; everything else runs here.
+
+services:
+  redis:
+    image: redis:7.4.1-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # One-shot: applies new migrations, then exits. Safe to run on every start.
+  migrate:
+    build: { context: ., dockerfile: Dockerfile }
+    env_file: .env
+    command: ["node", "db/migrate.js"]
+    restart: "no"
+
+  api:
+    build: { context: ., dockerfile: Dockerfile }
+    env_file: .env
+    # Lets the app reach an Ollama running on this machine (see docs/ai-models.md).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      REDIS_URL: redis://redis:6379
+      PORT: "3000"
+      HOST: 0.0.0.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      redis: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+    restart: unless-stopped
+    healthcheck:
+      # 127.0.0.1, not localhost: in Alpine, localhost resolves to ::1 first and the API listens on IPv4.
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  worker:
+    build: { context: ., dockerfile: Dockerfile.worker }
+    env_file: .env
+    # Lets the app reach an Ollama running on this machine (see docs/ai-models.md).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      redis: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+    restart: unless-stopped
+
+  dashboard:
+    build:
+      context: ./dashboard
+    env_file: .env
+    environment:
+      API_URL: http://api:3000
+      PORT: "3001"
+    ports:
+      - "3001:3001"
+    depends_on:
+      api: { condition: service_healthy }
+    restart: unless-stopped
+
+  # Optional: use an Ollama that runs on this machine with its default settings (localhost only).
+  #   docker compose --profile ollama up -d   → server address http://ollama.internal:11434 in Settings → AI model
+  # (Ollama only answers requests addressed to localhost or a *.internal / *.local name.)
+  # How: "ollama-host" runs in the host's network and talks to Ollama on 127.0.0.1; "ollama" sits in
+  # the app's network. They connect through a socket file, so no firewall change is needed and other
+  # computers on your network still cannot reach Ollama. Linux. (Docker Desktop: use host.docker.internal.)
+  ollama-host:
+    profiles: ["ollama"]
+    image: alpine/socat:1.8.0.3
+    network_mode: host
+    command: ["UNIX-LISTEN:/run/ollama/ollama.sock,fork,unlink-early,mode=666", "TCP:127.0.0.1:11434"]
+    volumes: [ollama-socket:/run/ollama]
+    restart: unless-stopped
+  ollama:
+    profiles: ["ollama"]
+    image: alpine/socat:1.8.0.3
+    command: ["TCP-LISTEN:11434,fork,reuseaddr", "UNIX-CONNECT:/run/ollama/ollama.sock"]
+    volumes: [ollama-socket:/run/ollama]
+    networks:
+      default:
+        aliases: [ollama.internal]
+    depends_on: [ollama-host]
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  ollama-socket:

@@ -1,0 +1,174 @@
+{
+  "source": "docs.apollo.io/reference/add-contacts-to-sequence (200 example, fetched 2026-10-26)",
+  "status": 200,
+  "body": {
+    "contacts": [
+      {
+        "contact_roles": [],
+        "id": "66e34b81740c50074e3d1bd4",
+        "first_name": "Fyodor",
+        "last_name": "Dostoevsky",
+        "name": "Fyodor Dostoevsky",
+        "linkedin_url": null,
+        "title": "Chief Writer",
+        "contact_stage_id": null,
+        "owner_id": "67b307d00957c2000d08872b",
+        "creator_id": "60affe7d6e270a00f5db6fe4",
+        "person_id": null,
+        "email_needs_tickling": null,
+        "organization_name": "Apollo.io",
+        "source": "api",
+        "original_source": "api",
+        "organization_id": null,
+        "headline": null,
+        "photo_url": null,
+        "present_raw_address": "St. Petersburg, Russia",
+        "linkedin_uid": null,
+        "extrapolated_email_confidence": null,
+        "salesforce_id": null,
+        "salesforce_lead_id": null,
+        "salesforce_contact_id": null,
+        "salesforce_account_id": null,
+        "crm_owner_id": null,
+        "created_at": "2024-09-12T20:13:53.207Z",
+        "emailer_campaign_ids": [
+          "66e9e215ece19801b219997f"
+        ],
+        "direct_dial_status": null,
+        "direct_dial_enrichment_failed_at": null,
+        "city": "Saint Petersburg",
+        "country": "Russia",
+        "state": "Saint Petersburg",
+        "email_status": "verified",
+        "email_source": null,
+        "account_id": null,
+        "last_activity_date": "2025-03-09T20:31:17.000+00:00",
+        "hubspot_vid": null,
+        "hubspot_company_id": null,
+        "crm_id": null,
+        "sanitized_phone": "+15555550117",
+        "merged_crm_ids": null,
+        "updated_at": "2025-05-23T13:38:25.109Z",
+        "queued_for_crm_push": false,
+        "suggested_from_rule_engine_config_id": null,
+        "email_unsubscribed": null,
+        "person_deleted": null,
+        "call_opted_out": null,
+        "label_ids": [],
+        "has_pending_email_arcgate_request": false,
+        "has_email_arcgate_request": false,
+        "existence_level": "full",
+        "email": "fyodor.dostoevsky@apollo.io",
+        "email_from_customer": true,
+        "typed_custom_fields": {},
+        "custom_field_errors": null,
+        "crm_record_url": null,
+        "email_status_unavailable_reason": null,
+        "email_true_status": "User Managed",
+        "updated_email_true_status": true,
+        "source_display_name": "Created from API",
+        "twitter_url": null,
+        "facebook_url": null,
+        "contact_campaign_statuses": [
+          {
+            "id": "68782af181c7f0002159df25",
+            "emailer_campaign_id": "66e9e215ece19801b219997f",
+            "send_email_from_user_id": "66302798d03b9601c7934ebf",
+            "inactive_reason": "Sequence inactive",
+            "status": "paused",
+            "added_at": "2025-07-16T22:42:57.372+00:00",
+            "added_by_user_id": "60affe7d6e270a00f5db6fe4",
+            "finished_at": null,
+            "paused_at": null,
+            "auto_unpause_at": null,
+            "send_email_from_email_address": "test.marcus.hale@apollomail.io",
+            "send_email_from_email_account_id": "6633baaece5fbd01c791d7ca",
+            "manually_set_unpause": null,
+            "failure_reason": null,
+            "current_step_id": null,
+            "in_response_to_emailer_message_id": null,
+            "cc_emails": null,
+            "bcc_emails": null,
+            "to_emails": null,
+            "current_step_position": null
+          }
+        ],
+        "contact_emails": [
+          {
+            "email_md5": "cf4604bbd3c12ca9e36e20aa0aefac29",
+            "email_sha256": "b5d981918efbd5a93eb10f834643a4277034f24e3b5cabc2631440c7ade49cf8",
+            "email_status": "verified",
+            "extrapolated_email_confidence": null,
+            "position": 0,
+            "email": "fyodor.dostoevsky@apollo.io",
+            "free_domain": false,
+            "source": "User Managed",
+            "third_party_vendor_name": null,
+            "vendor_validation_statuses": [],
+            "email_needs_tickling": null,
+            "email_true_status": "User Managed",
+            "email_status_unavailable_reason": null
+          }
+        ],
+        "time_zone": "Asia/Krasnoyarsk",
+        "show_intent": false,
+        "phone_numbers": [
+          {
+            "raw_number": "555-555-0117",
+            "sanitized_number": "+15555550117",
+            "type": "work_direct",
+            "position": 0,
+            "status": "no_status",
+            "dnc_status": null,
+            "dnc_other_info": {},
+            "dialer_flags": null,
+            "source_name": "User Managed",
+            "vendor_validation_statuses": [],
+            "third_party_vendor_name": null
+          }
+        ],
+        "account_phone_note": null,
+        "free_domain": false,
+        "email_domain_catchall": false
+      }
+    ],
+    "skipped_contact_ids": {
+      "66e34b81740c50074e3d1bd5": "contact_not_found"
+    },
+    "emailer_campaign": {
+      "id": "66e9e215ece19801b219997f",
+      "name": "Target Copywriting Clients in Dublin",
+      "archived": true,
+      "created_at": "2024-09-17T20:09:57.837Z",
+      "emailer_schedule_id": "6095a711bd01d100a506d52a",
+      "max_emails_per_day": null,
+      "user_id": "66302798d03b9601c7934ebf",
+      "active": false,
+      "loaded_stats": true
+    },
+    "emailer_steps": [
+      {
+        "id": "66e9e232ece19801b21999a4",
+        "emailer_campaign_id": "66e9e215ece19801b219997f",
+        "position": 1,
+        "wait_time": 4,
+        "type": "auto_email",
+        "wait_mode": "hour"
+      }
+    ],
+    "emailer_touches": [
+      {
+        "id": "66e9e232ece19801b21999a6",
+        "emailer_step_id": "66e9e232ece19801b21999a4",
+        "emailer_template_id": "66e9e232ece19801b21999a5",
+        "status": "approved",
+        "type": "new_thread"
+      }
+    ],
+    "team": {
+      "id": "6095a710bd01d100a506d4ac",
+      "sequences_finder_empty": false
+    },
+    "signals_hash": null
+  }
+}

@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══════════════════════════════════════════════════════════════
+   Design tokens
+   Solid surfaces, hairline borders, one neutral scale, restrained colour.
+   Colour is used for meaning (status), not decoration.
+   The --apple-* names are kept as the token API used across pages.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* Surfaces */
+  --apple-bg-desktop:       #F7F7F5;   /* app canvas */
+  --apple-bg-sidebar:       #FBFBFA;   /* navigation rail */
+  --apple-surface-elevated: #FFFFFF;   /* cards */
+  --apple-surface-solid:    #FFFFFF;
+  --apple-surface-pressed:  #F1F1EF;
+  --surface-subtle:         #FAFAF9;   /* table headers, insets */
+
+  /* Ink — all pass WCAG AA on white */
+  --apple-text-primary:   #18181B;     /* 17.7:1 */
+  --apple-text-secondary: #52525B;     /*  7.7:1 */
+  --apple-text-tertiary:  #71717A;     /*  4.8:1 */
+  --apple-text-disabled:  #A1A1AA;
+
+  /* Lines */
+  --apple-separator:        #E7E5E4;
+  --apple-separator-opaque: #D6D3D1;
+  --border-strong:          #D6D3D1;
+
+  /* Brand + status (muted, print-safe) */
+  --ink:          #18181B;             /* primary actions */
+  --apple-blue:   #2B59C3;             /* links, focus, informational */
+  --apple-green:  #15803D;
+  --apple-red:    #B42318;
+  --apple-orange: #B54708;
+  --apple-yellow: #A16207;
+  --apple-purple: #6941C6;
+  --apple-gray:   #71717A;
+  --apple-gray2:  #A1A1AA;
+  --apple-gray3:  #D4D4D8;
+  --apple-gray4:  #E4E4E7;
+  --apple-gray5:  #EDEDEC;
+  --apple-gray6:  #F4F4F3;
+
+  /* Status tints (backgrounds for badges/notices) */
+  --tint-blue:   #EEF2FB;
+  --tint-green:  #ECF6EF;
+  --tint-red:    #FDF0EF;
+  --tint-orange: #FDF3EA;
+
+  /* shadcn bridge */
+  --background: 60 9% 97%;
+  --foreground: 240 6% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 6% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 6% 10%;
+  --primary: 240 6% 10%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 60 5% 95%;
+  --secondary-foreground: 240 6% 10%;
+  --muted: 60 5% 95%;
+  --muted-foreground: 240 4% 46%;
+  --accent: 60 5% 95%;
+  --accent-foreground: 240 6% 10%;
+  --destructive: 4 76% 40%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 30 6% 90%;
+  --input: 24 6% 83%;
+  --ring: 222 64% 47%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * { @apply border-border; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--apple-bg-desktop);
+    color: var(--apple-text-primary);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv11" 1, "ss01" 1;   /* Inter: straight-sided digits, single-storey a */
+  }
+
+  h1, h2, h3 { letter-spacing: -0.011em; }
+
+  ::selection { background: #DCE4F6; }
+
+  input[type='checkbox'], input[type='radio'] { accent-color: var(--ink); width: 15px; height: 15px; }
+
+  a { text-underline-offset: 3px; }
+
+  /* One focus style everywhere, keyboard only */
+  :focus-visible { outline: 2px solid var(--apple-blue); outline-offset: 2px; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline-offset: 0; }
+}
+
+@layer components {
+  /* Card — the core surface */
+  .apple-card {
+    background: var(--apple-surface-elevated);
+    border: 1px solid var(--apple-separator);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(24, 24, 27, 0.04);
+  }
+
+  /* KPI tile — same surface, no motion */
+  .apple-widget {
+    background: var(--apple-surface-elevated);
+    border: 1px solid var(--apple-separator);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(24, 24, 27, 0.04);
+  }
+
+  /* Grouped list */
+  .apple-inset-group {
+    border: 1px solid var(--apple-separator);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--apple-surface-solid);
+  }
+  .apple-inset-row {
+    background: var(--apple-surface-solid);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--apple-separator);
+  }
+  .apple-inset-row:last-child { border-bottom: none; }
+
+  /* Table row */
+  .finder-row {
+    border-bottom: 1px solid var(--apple-separator);
+    transition: background-color 120ms ease;
+  }
+  .finder-row:hover { background: var(--surface-subtle); }
+  .finder-row:last-child { border-bottom: none; }
+
+  /* Active segmented control item */
+  .apple-pill-active {
+    background: var(--apple-surface-solid);
+    color: var(--apple-text-primary);
+    box-shadow: 0 0 0 1px var(--apple-separator), 0 1px 2px rgba(24, 24, 27, 0.06);
+  }
+
+  /* Loading placeholder — static tone, no shimmer */
+  .apple-shimmer { background: var(--apple-gray6); }
+
+  /* Section eyebrow / table header label */
+  .label-caps {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--apple-text-tertiary);
+  }
+}
+
+@layer utilities {
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+
+  .text-apple-primary   { color: var(--apple-text-primary); }
+  .text-apple-secondary { color: var(--apple-text-secondary); }
+  .text-apple-tertiary  { color: var(--apple-text-tertiary); }
+  .text-apple-blue   { color: var(--apple-blue); }
+  .text-apple-green  { color: var(--apple-green); }
+  .text-apple-red    { color: var(--apple-red); }
+  .text-apple-orange { color: var(--apple-orange); }
+
+  .avatar-ring { box-shadow: 0 0 0 2px #FFFFFF; }
+
+  .apple-focus:focus-visible { outline: 2px solid var(--apple-blue); outline-offset: 2px; border-radius: 6px; }
+
+  .apple-button-press { transition: background-color 120ms ease, border-color 120ms ease; }
+
+  /* Decorative motion is retired; keep the class names harmless. */
+  .animate-fade-in, .animate-pulse-ring { animation: none !important; }
+}

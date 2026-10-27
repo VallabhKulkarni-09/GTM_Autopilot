@@ -1,0 +1,26 @@
+{
+  "status": 200,
+  "body": {
+    "contacts": [],
+    "model_ids": [],
+    "breadcrumbs": [
+      {
+        "label": "Contains Keywords",
+        "signal_field_name": "q_keywords",
+        "value": "user@example.com",
+        "display_name": "user@example.com"
+      }
+    ],
+    "partial_results_only": false,
+    "has_join": false,
+    "disable_eu_prospecting": false,
+    "partial_results_limit": 10000,
+    "pagination": {
+      "page": 1,
+      "per_page": 5,
+      "total_entries": 0,
+      "total_pages": 1
+    },
+    "num_fetch_result": null
+  }
+}

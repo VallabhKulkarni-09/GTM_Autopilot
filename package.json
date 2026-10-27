@@ -1,0 +1,53 @@
+{
+  "name": "gtm-autopilot",
+  "version": "1.0.0",
+  "description": "Open-source, self-hostable decision layer for inbound leads: HubSpot → Salesforce → Apollo, with an append-only audit trail.",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "start:worker": "node dist/queue/start-workers.js",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:security": "vitest run tests/security/",
+    "migrate": "node db/migrate.js",
+    "eval": "node dist/evaluation/cli.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "revops",
+    "lead-routing",
+    "hubspot",
+    "salesforce",
+    "apollo",
+    "self-hosted"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "@fastify/helmet": "^13.1.1",
+    "@fastify/rate-limit": "^11.2.0",
+    "@langchain/langgraph": "^1.4.14",
+    "@langchain/langgraph-checkpoint-postgres": "1.0.6",
+    "@supabase/supabase-js": "^2.109.0",
+    "bullmq": "^6.3.4",
+    "dotenv": "^17.4.2",
+    "fastify": "^5.12.3",
+    "ioredis": "^6.0.0",
+    "jose": "6.2.13",
+    "pg": "^8.23.0",
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "@types/pg": "8.23.1",
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.9.3",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^3.2.4"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  }
+}
