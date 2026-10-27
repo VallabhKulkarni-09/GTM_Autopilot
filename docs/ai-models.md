@@ -70,7 +70,7 @@ its test result before turning it on.
 
 ## Set up a model
 
-Only admins can change these settings. Everything is on **Settings → AI model**.
+Only admins can change these settings. Everything is on the **Connections** page, in the **AI model** section below the tools.
 
 ### Step 1. Connect the model
 

@@ -17,9 +17,9 @@ import { getLeadTimeline } from '../../repositories/event-log.repository.js'
 
 function formatLeadSummary(row: any, play: any = null) {
   const name = [row.first_name, row.last_name].filter(Boolean).join(' ') || row.email
-  const firstTouchMs = play?.first_touch_at && play?.first_touch_deadline
-    ? new Date(play.first_touch_at).getTime() -
-      (new Date(play.first_touch_deadline).getTime() - 15 * 60_000)
+  // Measured from the form submission (the SLA clock), whatever the workspace's response time is.
+  const firstTouchMs = play?.first_touch_at && row.form_submitted_at
+    ? new Date(play.first_touch_at).getTime() - new Date(row.form_submitted_at).getTime()
     : null
 
   return {
@@ -32,6 +32,7 @@ function formatLeadSummary(row: any, play: any = null) {
     formSubmittedAt:     row.form_submitted_at,
     timeToFirstTouchMin: firstTouchMs !== null ? Math.round(firstTouchMs / 60_000) : null,
     slaBreached:         play?.sla_breached ?? false,
+    assignedTo:          play?.assigned_owner_name ?? null,
     isTest:              row.is_test === true,
     createdAt:           row.created_at,
   }
@@ -92,7 +93,7 @@ export async function leadRoutes(app: FastifyInstance) {
       if (leadIds.length > 0) {
         const { data: plays } = await db
           .from('play_instance')
-          .select('lead_id, sla_breached, first_touch_at, first_touch_deadline, status')
+          .select('lead_id, sla_breached, first_touch_at, first_touch_deadline, status, assigned_owner_name')
           .eq('organization_id', organizationId)
           .in('lead_id', leadIds)
           .order('created_at', { ascending: false })

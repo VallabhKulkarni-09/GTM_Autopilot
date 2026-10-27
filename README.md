@@ -11,7 +11,7 @@ open a lead and see what happened and why.
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 ![Self-hosted](https://img.shields.io/badge/self--hosted-Docker-2496ED)
 
-<!-- screenshot: lead timeline -->
+![Overview: leads qualified, response time and what needs attention](docs/images/overview.png)
 
 ---
 
@@ -45,6 +45,23 @@ and keeps a complete record of every decision it makes.
 
 Works with **HubSpot** (inbound forms), **Salesforce** (leads, owners, tasks, meetings) and
 **Apollo** (company data and Sequences).
+
+## A look around
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/ideal-customer.png" alt="Ideal customer settings: industries, countries, job titles and high-intent forms"><br><b>Ideal customer.</b> Describe who you sell to, in plain words.</td>
+    <td width="50%"><img src="docs/images/reps.png" alt="Reps imported from Salesforce, with a switch for who is taking new leads"><br><b>Reps & territories.</b> Import reps from Salesforce and pause anyone on holiday.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/images/approvals.png" alt="Approvals: leads waiting for a person, with the reason and a rep picker"><br><b>Approvals.</b> When no rep can be picked, a person decides and the play carries on.</td>
+    <td><img src="docs/images/outreach.png" alt="Outreach: the Apollo sequence and mailbox for each fit level"><br><b>Outreach.</b> One Apollo sequence per fit level.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/images/connections.png" alt="Connections: HubSpot, Salesforce and Apollo, each tested before saving"><br><b>Connections.</b> Each tool is tested before it is saved.</td>
+    <td><img src="docs/images/ai-model.png" alt="AI model setup: where the model runs, server address and model"><br><b>AI model.</b> Optional, and only used after it passes the test leads.</td>
+  </tr>
+</table>
 
 ---
 
@@ -164,7 +181,7 @@ Only then can you turn it on. On our run, Gemini 3.5 Flash-Lite matched 44 of 45
 provider you confirm, before saving, that it will be sent there. Names, email addresses and phone
 numbers are never sent either way.
 
-Setup and the provider-by-provider details are in [docs/ai-models.md](docs/ai-models.md).
+Set it up under **Connections → AI model**. The provider-by-provider details are in [docs/ai-models.md](docs/ai-models.md).
 
 ---
 
